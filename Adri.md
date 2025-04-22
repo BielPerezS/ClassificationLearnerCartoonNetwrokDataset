@@ -55,3 +55,4 @@ for i = 1:tam
 end
 
 TaulaEntrada = table(Episodio, Serie, Test, 'VariableNames', {'Episodeo', 'Clas','Test'});
+writetable(TaulaEntrada, 'TaulaEntrada.csv')%, 'QuoteStrings', false);
