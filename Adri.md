@@ -8,19 +8,28 @@
     % Histograma de colors podria ser una caracteristica
 %3r: etapa de aprenentatge
 
-taula = dir("C:\Users\adria.cebrian\Downloads\TRAIN\TRAIN\**\*.jpg");
+taula = dir(".\TRAIN\**\*.jpg");
 nf = size(taula);
 tam = nf(1);
 
-Episodio = strings;
-Serie = ones;
-%Test = ones(1);
+Episodio = strings(tam, 1);
+Serie = -ones(tam, 1);
+Test = zeros(tam, 1);
+%1 == Testing
+%0 == Learning
 
 for i = 1:tam
     Episodio(i) = taula(i).name;
-    folderPath = taula(i).folder;
+
+    random = rand();
+    % rand() devuelve un random [0,1]
     
-    % Use strcmpi for case-insensitive comparison (safer)
+    if random < 0.30
+        Test(i) = 1;
+    end
+
+    folderPath = taula(i).folder;
+
     if contains(folderPath, 'Bob esponja')
         Serie(i) = 0;
     elseif contains(folderPath, 'Gumball')
@@ -45,5 +54,4 @@ for i = 1:tam
     
 end
 
-TaulaEntrada = struct("Episodeo" , Episodio, "Clas", Serie)
-%}
+TaulaEntrada = table(Episodio, Serie, Test, 'VariableNames', {'Episodeo', 'Clas','Test'});
